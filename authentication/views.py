@@ -3,11 +3,15 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 import json
 
+from authentication.serializers import UserSerializer
+
 
 from .models import CustomUser
 from django.contrib.auth.hashers import check_password
 from rest_framework import status
 from .models import *
+from rest_framework.viewsets import ModelViewSet
+
 
 class Login(APIView):
     def post(self, request):
@@ -37,3 +41,7 @@ class Login(APIView):
                 "msg" : "inicio de sesion incorrecto"
             }
             return JsonResponse(data, status = status.HTTP_401_UNAUTHORIZED)
+
+class CustomUserView(ModelViewSet):
+    serializer_class = UserSerializer
+    queryset = CustomUser.objects.all()
