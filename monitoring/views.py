@@ -60,8 +60,8 @@ class SensorList(generics.ListAPIView):
     serializer_class = SensorSerializer
 
     def get_queryset(self):
-      id = self.request.query_params.get('id')
-      queryset = Sensor.objects.filter(id=id)
+      plant = self.request.query_params.get('plant')
+      queryset = Sensor.objects.filter(plant=plant)
       return queryset  
 
 class Readinglist(generics.ListAPIView):

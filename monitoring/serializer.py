@@ -22,7 +22,7 @@ class ShiftSerializer(serializers.ModelSerializer):
     
     class Meta:
         model =Shift
-        fields = ['start_date', 'end_date'] 
+        fields = '__all__'
 
 class TypeMeditionSerializer(serializers.ModelSerializer):
     class Meta:

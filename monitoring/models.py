@@ -2,6 +2,12 @@ from django.db import models
 from authentication.models import CustomUser
 from rest_framework import serializers
 
+TURNS = [
+    ("M", "matutino"), 
+    ("E", "evening"),
+    ("N", "night")
+]
+
 class Company(models.Model):
     asigne_to = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     company_name = models.CharField(max_length=45, null=False)
@@ -17,9 +23,11 @@ class Plant(models.Model):
     
     def __str__(self) -> str:
         return self.name_plant
+
     
 
 class Shift(models.Model):
+    turns = models.CharField(max_length=30, choices=TURNS)
     start_date = models.DateTimeField(null=False)
     end_date = models.DateTimeField(null=False)
     plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
@@ -38,6 +46,7 @@ class TypeMedition(models.Model):
     
     
 class Sensor(models.Model):
+    plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
     sensor_name = models.CharField(max_length=10, null=False)
     type_medition = models.ForeignKey(TypeMedition, on_delete=models.CASCADE)
     
